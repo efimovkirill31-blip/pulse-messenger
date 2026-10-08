@@ -1,40 +1,1846 @@
+```html
 <!doctype html>
-<html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Pulse — Messenger</title>
+<html lang="ru">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Pulse — Messenger</title>
+
 <style>
-:root{font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;color-scheme:light dark;--bg:light-dark(#f5f7fb,#0e1117);--panel:light-dark(#fff,#151a22);--panel2:light-dark(#f0f3f8,#1c222d);--text:light-dark(#111827,#f4f7fb);--muted:light-dark(#6b7280,#9aa4b2);--line:light-dark(#e5e9f0,#29313d);--accent:#5b67f1;--bubble:light-dark(#edf0ff,#26305f);--danger:#ef4444}*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text)}button,input{font:inherit}.app{height:100vh;display:grid;grid-template-columns:320px 1fr 300px;overflow:hidden}.sidebar,.details,.header,.composer{background:var(--panel)}.sidebar{border-right:1px solid var(--line);display:flex;flex-direction:column}.details{border-left:1px solid var(--line);padding:24px}.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:20px;padding:20px}.logo,.auth-logo{background:var(--accent);color:#fff;display:grid;place-items:center}.logo{width:34px;height:34px;border-radius:11px}.search{margin:0 16px 14px;display:flex;background:var(--panel2);border-radius:13px;padding:9px 12px;gap:8px}.search input{border:0;outline:0;background:transparent;color:var(--text);width:100%}.tabs{display:flex;padding:0 16px 12px;gap:5px}.tabs button{flex:1;border:0;border-radius:10px;padding:8px;background:transparent;color:var(--muted);cursor:pointer}.tabs button.active{background:var(--panel2);color:var(--text);font-weight:700}.chats{overflow:auto;flex:1}.chat{display:flex;gap:12px;padding:13px 17px;cursor:pointer}.chat:hover,.chat.active{background:var(--panel2)}.avatar{width:46px;height:46px;border-radius:50%;display:grid;place-items:center;font-weight:700;background:linear-gradient(135deg,#a9b5ff,#626ff4);color:#fff;flex:0 0 auto}.avatar.green{background:linear-gradient(135deg,#6dd5a4,#26966d)}.avatar.orange{background:linear-gradient(135deg,#ffba7a,#e67c2e)}.chatmain{min-width:0;flex:1}.row{display:flex;justify-content:space-between;gap:8px}.name{font-weight:700}.time,.preview{font-size:12px;color:var(--muted)}.preview{margin-top:4px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.unread{background:var(--accent);color:#fff;border-radius:99px;padding:2px 7px;font-size:11px;font-weight:700}.main{display:flex;flex-direction:column;min-width:0}.header{height:72px;border-bottom:1px solid var(--line);display:flex;align-items:center;padding:0 22px;gap:12px}.status{font-size:12px;color:#35a16f}.header-actions{margin-left:auto;display:flex;gap:6px}.icon{border:0;background:transparent;color:var(--muted);width:38px;height:38px;border-radius:10px;cursor:pointer}.icon:hover{background:var(--panel2);color:var(--text)}.messages{flex:1;overflow:auto;padding:28px 8%;background:var(--bg)}.day{text-align:center;color:var(--muted);font-size:12px;margin:4px 0 18px}.msg{display:flex;margin:8px 0;gap:9px}.msg.me{justify-content:flex-end}.bubble{max-width:min(650px,72%);padding:11px 14px;border-radius:17px;background:var(--panel);border:1px solid var(--line);line-height:1.4}.me .bubble{background:var(--bubble);border-color:transparent}.meta{font-size:11px;color:var(--muted);margin-top:4px;text-align:right}.attachment{display:block;margin-top:8px;max-width:280px;border-radius:12px}.file-card{display:flex;align-items:center;gap:10px;padding:10px;border:1px solid var(--line);border-radius:12px;background:var(--panel2)}.file-card small{display:block;color:var(--muted)}.composer{padding:15px 8%;border-top:1px solid var(--line);display:flex;gap:8px}.composer input{flex:1;border:1px solid var(--line);background:var(--panel2);color:var(--text);outline:0;border-radius:15px;padding:12px 14px}.send{border:0;background:var(--accent);color:#fff;border-radius:13px;padding:0 18px;font-weight:700;cursor:pointer}.recording{background:var(--danger)!important;color:#fff!important}.details h3{margin:4px 0 20px}.profile{text-align:center;padding:10px 0 20px}.profile .avatar{width:82px;height:82px;margin:0 auto 12px;font-size:25px}.info{border-top:1px solid var(--line);padding:18px 0}.label{font-size:11px;color:var(--muted);text-transform:uppercase;letter-spacing:.08em;margin-bottom:6px}.value{font-weight:600}.media{display:grid;grid-template-columns:repeat(3,1fr);gap:6px}.tile{aspect-ratio:1;background:var(--panel2);border-radius:9px;display:grid;place-items:center;font-size:22px}.account{display:flex;align-items:center;gap:10px;border-top:1px solid var(--line);padding:16px 0}.account .small{font-size:12px;color:var(--muted)}.logout{margin-left:auto;border:1px solid var(--line);background:transparent;color:var(--text);border-radius:9px;padding:7px 9px;cursor:pointer}.modal{position:fixed;inset:0;z-index:80;display:none;place-items:center;background:rgba(8,12,20,.7);backdrop-filter:blur(8px);padding:20px}.modal-card{width:min(460px,100%);background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:24px}.modal-card h2{margin-top:0}.field{margin:12px 0}.field label{display:block;font-size:13px;font-weight:700;margin-bottom:6px}.field input{width:100%;padding:11px;border:1px solid var(--line);border-radius:10px;background:var(--panel2);color:var(--text)}.modal-actions{display:flex;justify-content:flex-end;gap:8px;margin-top:18px}.primary,.secondary{border:0;border-radius:10px;padding:10px 14px;cursor:pointer}.primary{background:var(--accent);color:#fff}.secondary{background:var(--panel2);color:var(--text)}.members{display:flex;flex-wrap:wrap;gap:7px}.member{padding:7px 10px;background:var(--panel2);border-radius:999px;font-size:12px}.auth-overlay{position:fixed;inset:0;z-index:100;display:grid;place-items:center;padding:20px;background:rgba(8,12,20,.72);backdrop-filter:blur(10px)}.auth-card{width:min(430px,100%);background:var(--panel);border:1px solid var(--line);border-radius:24px;padding:30px;box-shadow:0 24px 80px rgba(0,0,0,.28)}.auth-logo{width:48px;height:48px;border-radius:14px;font-weight:900;font-size:22px;margin-bottom:18px}.auth-card h1{margin:0 0 8px}.auth-card p{margin:0 0 24px;color:var(--muted)}.auth-field{display:block;margin:14px 0}.auth-field span{display:block;font-size:13px;font-weight:700;margin-bottom:7px}.auth-field input{width:100%;padding:13px 14px;border:1px solid var(--line);border-radius:12px;background:var(--panel2);color:var(--text);outline:none}.auth-submit{width:100%;border:0;border-radius:12px;padding:13px;background:var(--accent);color:#fff;font-weight:800;cursor:pointer;margin-top:8px}.auth-error{min-height:20px;color:#ef4444;font-size:13px;margin-top:10px}.mobile-menu{display:none}.voice{font-size:13px}.online-dot{width:8px;height:8px;background:#35a16f;border-radius:50%;display:inline-block;margin-right:5px}
-@media(max-width:1000px){.app{grid-template-columns:280px 1fr}.details{display:none}}@media(max-width:700px){.app{grid-template-columns:1fr}.sidebar{display:none}.mobile-menu{display:block}.messages{padding:22px 14px}.composer{padding:12px}.header{padding:0 12px}.bubble{max-width:82%}}
-</style></head><body>
-<div class="auth-overlay" id="authOverlay"><div class="auth-card"><div class="auth-logo">P</div><h1>Создать аккаунт</h1><p>Зарегистрируйтесь, чтобы начать пользоваться Pulse.</p><form id="registerForm"><label class="auth-field"><span>Имя</span><input id="regName" required minlength="2" autocomplete="name" placeholder="Например, Кирилл"></label><label class="auth-field"><span>Email</span><input id="regEmail" type="email" required autocomplete="email" placeholder="you@example.com"></label><label class="auth-field"><span>Пароль</span><input id="regPassword" type="password" required minlength="6" autocomplete="new-password" placeholder="Минимум 6 символов"></label><div class="auth-error" id="authError"></div><button class="auth-submit">Зарегистрироваться</button></form></div></div>
-<div class="app"><aside class="sidebar"><div class="brand"><div class="logo">✦</div>Pulse</div><div class="search">⌕ <input id="search" placeholder="Поиск чатов…"></div><div class="tabs"><button class="active">Все</button><button id="unreadTab">Непрочитанные</button></div><div class="chats" id="chats"></div></aside>
-<main class="main"><header class="header"><button class="icon mobile-menu">☰</button><div class="avatar" id="headAvatar">А</div><div><div class="name" id="headName">Анна Петрова</div><div class="status"><span class="online-dot"></span>в сети</div></div><div class="header-actions"><button class="icon" id="newGroup" title="Новая группа">👥</button><button class="icon" id="searchMessages">⌕</button><button class="icon">⋮</button></div></header><section class="messages" id="messages"></section>
-<form class="composer" id="composer"><input type="file" id="fileInput" hidden multiple accept="image/*,.pdf,.doc,.docx,.txt,.zip"><button type="button" class="icon" id="attachBtn" title="Фото или файл">＋</button><button type="button" class="icon voice" id="voiceBtn" title="Голосовое">🎙️</button><input id="input" autocomplete="off" placeholder="Напишите сообщение…"><button class="send">Отправить</button></form></main>
-<aside class="details"><div class="profile"><div class="avatar" id="detailAvatar">А</div><h3 id="detailName">Анна Петрова</h3><div class="status"><span class="online-dot"></span>в сети</div></div><div class="info"><div class="label">О себе</div><div class="value" id="detailBio">Дизайнер интерфейсов · Amsterdam</div></div><div class="info"><div class="label">Участники</div><div class="members" id="members"></div></div><div class="info"><div class="label">Общие медиа</div><div class="media"><div class="tile">📷</div><div class="tile">🎨</div><div class="tile">🌆</div></div></div><div class="account"><div class="avatar" id="myAvatar">Я</div><div><strong id="myName">Гость</strong><div class="small" id="myEmail">Не зарегистрирован</div></div><button class="logout" id="logoutBtn">Выйти</button></div></aside></div>
-<div class="modal" id="groupModal"><div class="modal-card"><h2>Новая группа</h2><div class="field"><label>Название</label><input id="groupName" placeholder="Например, Команда проекта"></div><div class="field"><label>Участники</label><input id="groupMembers" placeholder="Анна, Максим, Лена"></div><div class="modal-actions"><button class="secondary" id="cancelGroup">Отмена</button><button class="primary" id="createGroup">Создать</button></div></div></div>
+:root{
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif;
+  color-scheme:light dark;
+  --bg:light-dark(#f5f7fb,#0e1117);
+  --panel:light-dark(#fff,#151a22);
+  --panel2:light-dark(#f0f3f8,#1c222d);
+  --text:light-dark(#111827,#f4f7fb);
+  --muted:light-dark(#6b7280,#9aa4b2);
+  --line:light-dark(#e5e9f0,#29313d);
+  --accent:#5b67f1;
+  --bubble:light-dark(#edf0ff,#26305f);
+  --danger:#ef4444
+}
+
+*{box-sizing:border-box}
+
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--text)
+}
+
+button,input{
+  font:inherit
+}
+
+.app{
+  height:100vh;
+  display:grid;
+  grid-template-columns:320px 1fr 300px;
+  overflow:hidden
+}
+
+.sidebar,.details,.header,.composer{
+  background:var(--panel)
+}
+
+.sidebar{
+  border-right:1px solid var(--line);
+  display:flex;
+  flex-direction:column
+}
+
+.details{
+  border-left:1px solid var(--line);
+  padding:24px
+}
+
+.brand{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  font-weight:800;
+  font-size:20px;
+  padding:20px
+}
+
+.logo,.auth-logo{
+  background:var(--accent);
+  color:#fff;
+  display:grid;
+  place-items:center
+}
+
+.logo{
+  width:34px;
+  height:34px;
+  border-radius:11px
+}
+
+.search{
+  margin:0 16px 14px;
+  display:flex;
+  background:var(--panel2);
+  border-radius:13px;
+  padding:9px 12px;
+  gap:8px
+}
+
+.search input{
+  border:0;
+  outline:0;
+  background:transparent;
+  color:var(--text);
+  width:100%
+}
+
+.tabs{
+  display:flex;
+  padding:0 16px 12px;
+  gap:5px
+}
+
+.tabs button{
+  flex:1;
+  border:0;
+  border-radius:10px;
+  padding:8px;
+  background:transparent;
+  color:var(--muted);
+  cursor:pointer
+}
+
+.tabs button.active{
+  background:var(--panel2);
+  color:var(--text);
+  font-weight:700
+}
+
+.chats{
+  overflow:auto;
+  flex:1
+}
+
+.chat{
+  display:flex;
+  gap:12px;
+  padding:13px 17px;
+  cursor:pointer
+}
+
+.chat:hover,.chat.active{
+  background:var(--panel2)
+}
+
+.avatar{
+  width:46px;
+  height:46px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  font-weight:700;
+  background:linear-gradient(135deg,#a9b5ff,#626ff4);
+  color:#fff;
+  flex:0 0 auto
+}
+
+.avatar.green{
+  background:linear-gradient(135deg,#6dd5a4,#26966d)
+}
+
+.avatar.orange{
+  background:linear-gradient(135deg,#ffba7a,#e67c2e)
+}
+
+.chatmain{
+  min-width:0;
+  flex:1
+}
+
+.row{
+  display:flex;
+  justify-content:space-between;
+  gap:8px
+}
+
+.name{
+  font-weight:700
+}
+
+.time,.preview{
+  font-size:12px;
+  color:var(--muted)
+}
+
+.preview{
+  margin-top:4px;
+  white-space:nowrap;
+  overflow:hidden;
+  text-overflow:ellipsis
+}
+
+.unread{
+  background:var(--accent);
+  color:#fff;
+  border-radius:99px;
+  padding:2px 7px;
+  font-size:11px;
+  font-weight:700
+}
+
+.main{
+  display:flex;
+  flex-direction:column;
+  min-width:0
+}
+
+.header{
+  height:72px;
+  border-bottom:1px solid var(--line);
+  display:flex;
+  align-items:center;
+  padding:0 22px;
+  gap:12px
+}
+
+.status{
+  font-size:12px;
+  color:#35a16f
+}
+
+.header-actions{
+  margin-left:auto;
+  display:flex;
+  gap:6px
+}
+
+.icon{
+  border:0;
+  background:transparent;
+  color:var(--muted);
+  width:38px;
+  height:38px;
+  border-radius:10px;
+  cursor:pointer
+}
+
+.icon:hover{
+  background:var(--panel2);
+  color:var(--text)
+}
+
+.messages{
+  flex:1;
+  overflow:auto;
+  padding:28px 8%;
+  background:var(--bg)
+}
+
+.empty{
+  height:100%;
+  display:grid;
+  place-items:center;
+  text-align:center;
+  color:var(--muted)
+}
+
+.empty-box{
+  max-width:420px
+}
+
+.empty-box .big{
+  font-size:48px;
+  margin-bottom:12px
+}
+
+.day{
+  text-align:center;
+  color:var(--muted);
+  font-size:12px;
+  margin:4px 0 18px
+}
+
+.msg{
+  display:flex;
+  margin:8px 0;
+  gap:9px
+}
+
+.msg.me{
+  justify-content:flex-end
+}
+
+.bubble{
+  max-width:min(650px,72%);
+  padding:11px 14px;
+  border-radius:17px;
+  background:var(--panel);
+  border:1px solid var(--line);
+  line-height:1.4
+}
+
+.me .bubble{
+  background:var(--bubble);
+  border-color:transparent
+}
+
+.meta{
+  font-size:11px;
+  color:var(--muted);
+  margin-top:4px;
+  text-align:right
+}
+
+.attachment{
+  display:block;
+  margin-top:8px;
+  max-width:280px;
+  border-radius:12px
+}
+
+.file-card{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--panel2)
+}
+
+.file-card small{
+  display:block;
+  color:var(--muted)
+}
+
+.composer{
+  padding:15px 8%;
+  border-top:1px solid var(--line);
+  display:flex;
+  gap:8px
+}
+
+.composer input{
+  flex:1;
+  border:1px solid var(--line);
+  background:var(--panel2);
+  color:var(--text);
+  outline:0;
+  border-radius:15px;
+  padding:12px 14px
+}
+
+.send{
+  border:0;
+  background:var(--accent);
+  color:#fff;
+  border-radius:13px;
+  padding:0 18px;
+  font-weight:700;
+  cursor:pointer
+}
+
+.recording{
+  background:var(--danger)!important;
+  color:#fff!important
+}
+
+.details h3{
+  margin:4px 0 20px
+}
+
+.profile{
+  text-align:center;
+  padding:10px 0 20px
+}
+
+.profile .avatar{
+  width:82px;
+  height:82px;
+  margin:0 auto 12px;
+  font-size:25px
+}
+
+.info{
+  border-top:1px solid var(--line);
+  padding:18px 0
+}
+
+.label{
+  font-size:11px;
+  color:var(--muted);
+  text-transform:uppercase;
+  letter-spacing:.08em;
+  margin-bottom:6px
+}
+
+.value{
+  font-weight:600
+}
+
+.media{
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:6px
+}
+
+.tile{
+  aspect-ratio:1;
+  background:var(--panel2);
+  border-radius:9px;
+  display:grid;
+  place-items:center;
+  font-size:22px
+}
+
+.account{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  border-top:1px solid var(--line);
+  padding:16px 0
+}
+
+.account .small{
+  font-size:12px;
+  color:var(--muted)
+}
+
+.logout{
+  margin-left:auto;
+  border:1px solid var(--line);
+  background:transparent;
+  color:var(--text);
+  border-radius:9px;
+  padding:7px 9px;
+  cursor:pointer
+}
+
+.modal{
+  position:fixed;
+  inset:0;
+  z-index:80;
+  display:none;
+  place-items:center;
+  background:rgba(8,12,20,.7);
+  backdrop-filter:blur(8px);
+  padding:20px
+}
+
+.modal-card{
+  width:min(460px,100%);
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:24px
+}
+
+.modal-card h2{
+  margin-top:0
+}
+
+.field{
+  margin:12px 0
+}
+
+.field label{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:6px
+}
+
+.field input{
+  width:100%;
+  padding:11px;
+  border:1px solid var(--line);
+  border-radius:10px;
+  background:var(--panel2);
+  color:var(--text)
+}
+
+.modal-actions{
+  display:flex;
+  justify-content:flex-end;
+  gap:8px;
+  margin-top:18px
+}
+
+.primary,.secondary{
+  border:0;
+  border-radius:10px;
+  padding:10px 14px;
+  cursor:pointer
+}
+
+.primary{
+  background:var(--accent);
+  color:#fff
+}
+
+.secondary{
+  background:var(--panel2);
+  color:var(--text)
+}
+
+.members{
+  display:flex;
+  flex-wrap:wrap;
+  gap:7px
+}
+
+.member{
+  padding:7px 10px;
+  background:var(--panel2);
+  border-radius:999px;
+  font-size:12px
+}
+
+.auth-overlay{
+  position:fixed;
+  inset:0;
+  z-index:100;
+  display:grid;
+  place-items:center;
+  padding:20px;
+  background:rgba(8,12,20,.72);
+  backdrop-filter:blur(10px)
+}
+
+.auth-card{
+  width:min(430px,100%);
+  background:var(--panel);
+  border:1px solid var(--line);
+  border-radius:24px;
+  padding:30px;
+  box-shadow:0 24px 80px rgba(0,0,0,.28)
+}
+
+.auth-logo{
+  width:48px;
+  height:48px;
+  border-radius:14px;
+  font-weight:900;
+  font-size:22px;
+  margin-bottom:18px
+}
+
+.auth-card h1{
+  margin:0 0 8px
+}
+
+.auth-card p{
+  margin:0 0 24px;
+  color:var(--muted)
+}
+
+.auth-field{
+  display:block;
+  margin:14px 0
+}
+
+.auth-field span{
+  display:block;
+  font-size:13px;
+  font-weight:700;
+  margin-bottom:7px
+}
+
+.auth-field input{
+  width:100%;
+  padding:13px 14px;
+  border:1px solid var(--line);
+  border-radius:12px;
+  background:var(--panel2);
+  color:var(--text);
+  outline:none
+}
+
+.auth-submit{
+  width:100%;
+  border:0;
+  border-radius:12px;
+  padding:13px;
+  background:var(--accent);
+  color:#fff;
+  font-weight:800;
+  cursor:pointer;
+  margin-top:8px
+}
+
+.auth-error{
+  min-height:20px;
+  color:#ef4444;
+  font-size:13px;
+  margin-top:10px
+}
+
+.mobile-menu{
+  display:none
+}
+
+.voice{
+  font-size:13px
+}
+
+.online-dot{
+  width:8px;
+  height:8px;
+  background:#35a16f;
+  border-radius:50%;
+  display:inline-block;
+  margin-right:5px
+}
+
+@media(max-width:1000px){
+  .app{
+    grid-template-columns:280px 1fr
+  }
+
+  .details{
+    display:none
+  }
+}
+
+@media(max-width:700px){
+  .app{
+    grid-template-columns:1fr
+  }
+
+  .sidebar{
+    display:none
+  }
+
+  .mobile-menu{
+    display:block
+  }
+
+  .messages{
+    padding:22px 14px
+  }
+
+  .composer{
+    padding:12px
+  }
+
+  .header{
+    padding:0 12px
+  }
+
+  .bubble{
+    max-width:82%
+  }
+}
+</style>
+</head>
+
+<body>
+
+<div class="auth-overlay" id="authOverlay">
+  <div class="auth-card">
+    <div class="auth-logo">P</div>
+
+    <h1>Создать аккаунт</h1>
+
+    <p>
+      Зарегистрируйтесь, чтобы начать пользоваться Pulse.
+    </p>
+
+    <form id="registerForm">
+
+      <label class="auth-field">
+        <span>Имя</span>
+        <input
+          id="regName"
+          required
+          minlength="2"
+          autocomplete="name"
+          placeholder="Например, Кирилл"
+        >
+      </label>
+
+      <label class="auth-field">
+        <span>Email</span>
+        <input
+          id="regEmail"
+          type="email"
+          required
+          autocomplete="email"
+          placeholder="you@example.com"
+        >
+      </label>
+
+      <label class="auth-field">
+        <span>Пароль</span>
+        <input
+          id="regPassword"
+          type="password"
+          required
+          minlength="6"
+          autocomplete="new-password"
+          placeholder="Минимум 6 символов"
+        >
+      </label>
+
+      <div class="auth-error" id="authError"></div>
+
+      <button class="auth-submit">
+        Зарегистрироваться
+      </button>
+
+    </form>
+  </div>
+</div>
+
+
+<div class="app">
+
+  <aside class="sidebar">
+
+    <div class="brand">
+      <div class="logo">✦</div>
+      Pulse
+    </div>
+
+    <div class="search">
+      ⌕
+      <input id="search" placeholder="Поиск чатов…">
+    </div>
+
+    <div class="tabs">
+      <button class="active" id="allTab">Все</button>
+      <button id="unreadTab">Непрочитанные</button>
+    </div>
+
+    <div class="chats" id="chats"></div>
+
+  </aside>
+
+
+  <main class="main">
+
+    <header class="header">
+
+      <button class="icon mobile-menu">
+        ☰
+      </button>
+
+      <div class="avatar" id="headAvatar">
+        P
+      </div>
+
+      <div>
+        <div class="name" id="headName">
+          Pulse Messenger
+        </div>
+
+        <div class="status">
+          <span class="online-dot"></span>
+          готов к работе
+        </div>
+      </div>
+
+      <div class="header-actions">
+
+        <button
+          class="icon"
+          id="newGroup"
+          title="Новая группа"
+        >
+          👥
+        </button>
+
+        <button
+          class="icon"
+          id="searchMessages"
+          title="Поиск"
+        >
+          ⌕
+        </button>
+
+        <button
+          class="icon"
+          title="Меню"
+        >
+          ⋮
+        </button>
+
+      </div>
+
+    </header>
+
+
+    <section class="messages" id="messages">
+
+      <div class="empty">
+
+        <div class="empty-box">
+
+          <div class="big">💬</div>
+
+          <h2>Нет чатов</h2>
+
+          <p>
+            Здесь появятся ваши сообщения.
+            Создайте новую группу или подключите
+            реальный сервер для общения с другими пользователями.
+          </p>
+
+        </div>
+
+      </div>
+
+    </section>
+
+
+    <form class="composer" id="composer">
+
+      <input
+        type="file"
+        id="fileInput"
+        hidden
+        multiple
+        accept="image/*,.pdf,.doc,.docx,.txt,.zip"
+      >
+
+      <button
+        type="button"
+        class="icon"
+        id="attachBtn"
+        title="Фото или файл"
+      >
+        ＋
+      </button>
+
+      <button
+        type="button"
+        class="icon voice"
+        id="voiceBtn"
+        title="Голосовое"
+      >
+        🎙️
+      </button>
+
+      <input
+        id="input"
+        autocomplete="off"
+        placeholder="Сначала создайте чат…"
+      >
+
+      <button
+        class="send"
+        id="sendButton"
+      >
+        Отправить
+      </button>
+
+    </form>
+
+  </main>
+
+
+  <aside class="details">
+
+    <div class="profile">
+
+      <div class="avatar" id="detailAvatar">
+        P
+      </div>
+
+      <h3 id="detailName">
+        Pulse Messenger
+      </h3>
+
+      <div class="status">
+        <span class="online-dot"></span>
+        готов к работе
+      </div>
+
+    </div>
+
+
+    <div class="info">
+
+      <div class="label">
+        О себе
+      </div>
+
+      <div class="value" id="detailBio">
+        Ваш мессенджер Pulse
+      </div>
+
+    </div>
+
+
+    <div class="info">
+
+      <div class="label">
+        Участники
+      </div>
+
+      <div class="members" id="members">
+        <span class="member">
+          Вы
+        </span>
+      </div>
+
+    </div>
+
+
+    <div class="info">
+
+      <div class="label">
+        Общие медиа
+      </div>
+
+      <div class="media">
+
+        <div class="tile">📷</div>
+        <div class="tile">🎨</div>
+        <div class="tile">🌆</div>
+
+      </div>
+
+    </div>
+
+
+    <div class="account">
+
+      <div class="avatar" id="myAvatar">
+        Я
+      </div>
+
+      <div>
+
+        <strong id="myName">
+          Гость
+        </strong>
+
+        <div class="small" id="myEmail">
+          Не зарегистрирован
+        </div>
+
+      </div>
+
+      <button
+        class="logout"
+        id="logoutBtn"
+      >
+        Выйти
+      </button>
+
+    </div>
+
+  </aside>
+
+</div>
+
+
+<div class="modal" id="groupModal">
+
+  <div class="modal-card">
+
+    <h2>
+      Новая группа
+    </h2>
+
+    <div class="field">
+
+      <label>
+        Название
+      </label>
+
+      <input
+        id="groupName"
+        placeholder="Например, Команда проекта"
+      >
+
+    </div>
+
+    <div class="field">
+
+      <label>
+        Участники
+      </label>
+
+      <input
+        id="groupMembers"
+        placeholder="Анна, Максим, Лена"
+      >
+
+    </div>
+
+    <div class="modal-actions">
+
+      <button
+        class="secondary"
+        id="cancelGroup"
+      >
+        Отмена
+      </button>
+
+      <button
+        class="primary"
+        id="createGroup"
+      >
+        Создать
+      </button>
+
+    </div>
+
+  </div>
+
+</div>
+
+
 <script>
-const chats=[
-{id:'anna',name:'Анна Петрова',initial:'А',time:'03:58',text:'Давай созвонимся завтра?',unread:2,cls:'',type:'private',members:['Анна Петрова']},
-{id:'max',name:'Максим',initial:'М',time:'Вчера',text:'Файл отправил 👍',unread:0,cls:'green',type:'private',members:['Максим']},
-{id:'team',name:'Команда проекта',initial:'К',time:'Вт',text:'Илья: Новая версия готова',unread:5,cls:'orange',type:'group',members:['Кирилл','Анна','Максим','Илья']},
-{id:'lena',name:'Лена',initial:'Л',time:'Пн',text:'Спасибо! ❤️',unread:0,cls:'green',type:'private',members:['Лена']},
-{id:'saved',name:'Избранное',initial:'★',time:'Вс',text:'Заметки и сохранённые сообщения',unread:0,cls:'orange',type:'private',members:['Вы']}];
-let active=0, filterUnread=false, histories={anna:[{me:false,text:'Привет! Как тебе новый макет?',time:'03:52'},{me:true,text:'Очень нравится. Особенно экран чатов — выглядит чисто.',time:'03:54'},{me:false,text:'Супер! Я ещё немного поправила типографику.',time:'03:56'},{me:true,text:'Давай созвонимся завтра?',time:'03:58'}],team:[{me:false,text:'Новая версия готова',time:'14:12',author:'Илья'}],max:[{me:false,text:'Файл отправил 👍',time:'Вчера'}],lena:[{me:false,text:'Спасибо! ❤️',time:'Пн'}],saved:[]};
-let mediaRecorder=null,audioChunks=[],broadcast=null;
-function esc(s){return String(s).replace(/[&<>"']/g,x=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[x]))}
-function renderChats(){let q=document.getElementById('search').value.toLowerCase();document.getElementById('chats').innerHTML=chats.filter(c=>(!filterUnread||c.unread>0)&&c.name.toLowerCase().includes(q)).map((c,i)=>`<div class="chat ${i===active?'active':''}" onclick="selectChat(${i})"><div class="avatar ${c.cls}">${esc(c.initial)}</div><div class="chatmain"><div class="row"><span class="name">${esc(c.name)}</span><span class="time">${esc(c.time)}</span></div><div class="row"><span class="preview">${esc(c.text)}</span>${c.unread?`<span class="unread">${c.unread}</span>`:''}</div></div></div>`).join('')}
-function renderMessages(){let c=chats[active],h=histories[c.id]||[];document.getElementById('messages').innerHTML='<div class="day">Сегодня</div>'+h.map(m=>{let body=m.kind==='image'?`<img class="attachment" src="${m.url}" alt="Фото">`:m.kind==='file'?`<div class="file-card">📎 <div><strong>${esc(m.name)}</strong><small>${Math.round(m.size/1024)} KB</small></div></div>`:m.kind==='audio'?`<audio controls src="${m.url}" style="max-width:240px"></audio>`:esc(m.text);return `<div class="msg ${m.me?'me':''}"><div class="bubble">${m.author?`<div style="font-size:12px;color:var(--accent);font-weight:700;margin-bottom:4px">${esc(m.author)}</div>`:''}${body}<div class="meta">${esc(m.time||'сейчас')}${m.me?' · ✓✓':''}</div></div></div>`}).join('');let el=document.getElementById('messages');el.scrollTop=el.scrollHeight;document.getElementById('members').innerHTML=c.members.map(x=>`<span class="member">${esc(x)}</span>`).join('')}
-function selectChat(i){active=i;let c=chats[i];c.unread=0;document.getElementById('headName').textContent=c.name;document.getElementById('detailName').textContent=c.name;document.getElementById('headAvatar').textContent=c.initial;document.getElementById('detailAvatar').textContent=c.initial;document.getElementById('detailBio').textContent=c.type==='group'?'Групповой чат · Pulse':'Личные сообщения';renderChats();renderMessages()}
-function now(){return new Date().toLocaleTimeString('ru-RU',{hour:'2-digit',minute:'2-digit'})}
-function addMessage(m){let id=chats[active].id;(histories[id] ||= []).push(m);renderMessages();chats[active].text=m.text||m.name||'Вложение';chats[active].time=now();renderChats();try{broadcast?.postMessage({type:'message',chatId:id,message:m})}catch(e){}}
-function applyUser(user){document.getElementById('authOverlay').style.display='none';document.getElementById('myName').textContent=user.name;document.getElementById('myEmail').textContent=user.email;document.getElementById('myAvatar').textContent=user.name.trim().charAt(0).toUpperCase()||'Я'}
-function initAuth(){let saved=localStorage.getItem('pulseUser');if(saved)applyUser(JSON.parse(saved))}
-document.getElementById('registerForm').addEventListener('submit',e=>{e.preventDefault();let name=regName.value.trim(),email=regEmail.value.trim(),password=regPassword.value,err=authError;if(name.length<2){err.textContent='Введите имя минимум из 2 символов.';return}if(password.length<6){err.textContent='Пароль должен содержать минимум 6 символов.';return}let user={name,email};localStorage.setItem('pulseUser',JSON.stringify(user));applyUser(user)});
-logoutBtn.onclick=()=>{localStorage.removeItem('pulseUser');location.reload()};
-search.oninput=renderChats;unreadTab.onclick=()=>{filterUnread=!filterUnread;unreadTab.classList.toggle('active',filterUnread);renderChats()};attachBtn.onclick=()=>fileInput.click();
-fileInput.onchange=e=>{[...e.target.files].forEach(file=>{let reader=new FileReader();reader.onload=()=>addMessage({me:true,kind:file.type.startsWith('image/')?'image':'file',url:reader.result,name:file.name,size:file.size,time:now(),text:file.name});reader.readAsDataURL(file)});fileInput.value=''};
-composer.onsubmit=e=>{e.preventDefault();let text=input.value.trim();if(!text)return;addMessage({me:true,text,time:now()});input.value=''};
-voiceBtn.onclick=async()=>{if(mediaRecorder&&mediaRecorder.state==='recording'){mediaRecorder.stop();voiceBtn.classList.remove('recording');voiceBtn.textContent='🎙️';return}try{let stream=await navigator.mediaDevices.getUserMedia({audio:true});audioChunks=[];mediaRecorder=new MediaRecorder(stream);mediaRecorder.ondataavailable=e=>audioChunks.push(e.data);mediaRecorder.onstop=()=>{let blob=new Blob(audioChunks,{type:'audio/webm'}),url=URL.createObjectURL(blob);addMessage({me:true,kind:'audio',url,text:'Голосовое сообщение',time:now()});stream.getTracks().forEach(t=>t.stop())};mediaRecorder.start();voiceBtn.classList.add('recording');voiceBtn.textContent='⏹️'}catch(e){alert('Не удалось получить доступ к микрофону. Разрешите микрофон в браузере.')}};
-newGroup.onclick=()=>groupModal.style.display='grid';cancelGroup.onclick=()=>groupModal.style.display='none';createGroup.onclick=()=>{let name=groupName.value.trim();if(!name)return;let members=groupMembers.value.split(',').map(x=>x.trim()).filter(Boolean);let id='group_'+Date.now();chats.splice(0,0,{id,name,initial:name[0].toUpperCase(),time:'сейчас',text:'Группа создана',unread:0,cls:'orange',type:'group',members});histories[id]=[];groupName.value='';groupMembers.value='';groupModal.style.display='none';renderChats();selectChat(0)};
-// Real-time-ready transport: BroadcastChannel synchronizes open tabs immediately. A WebSocket server can replace this transport without changing the chat UI.
-try{broadcast=new BroadcastChannel('pulse-realtime');broadcast.onmessage=e=>{if(e.data?.type==='message'){let idx=chats.findIndex(c=>c.id===e.data.chatId);if(idx<0)return;(histories[e.data.chatId] ||= []).push(e.data.message);chats[idx].text=e.data.message.text||e.data.message.name||'Вложение';chats[idx].time=e.data.message.time||now();if(idx===active)renderMessages();renderChats()}}}catch(e){}
-renderChats();renderMessages();initAuth();
-</script></body></html>
+
+const chats = [];
+
+let active = -1;
+
+let filterUnread = false;
+
+let histories = {};
+
+let mediaRecorder = null;
+
+let audioChunks = [];
+
+let broadcast = null;
+
+
+function esc(s){
+
+  return String(s).replace(
+    /[&<>"']/g,
+    x => ({
+      '&':'&amp;',
+      '<':'&lt;',
+      '>':'&gt;',
+      '"':'&quot;',
+      "'":'&#039;'
+    }[x])
+  );
+
+}
+
+
+function renderChats(){
+
+  const q =
+    document
+      .getElementById('search')
+      .value
+      .toLowerCase();
+
+  const list =
+    chats.filter(c =>
+      (!filterUnread || c.unread > 0) &&
+      c.name.toLowerCase().includes(q)
+    );
+
+  document.getElementById('chats').innerHTML =
+    list.map(c => {
+
+      const i = chats.indexOf(c);
+
+      return `
+        <div
+          class="chat ${i === active ? 'active' : ''}"
+          onclick="selectChat(${i})"
+        >
+
+          <div class="avatar ${c.cls || ''}">
+            ${esc(c.initial)}
+          </div>
+
+          <div class="chatmain">
+
+            <div class="row">
+
+              <span class="name">
+                ${esc(c.name)}
+              </span>
+
+              <span class="time">
+                ${esc(c.time || '')}
+              </span>
+
+            </div>
+
+            <div class="row">
+
+              <span class="preview">
+                ${esc(c.text || '')}
+              </span>
+
+              ${
+                c.unread
+                  ? `<span class="unread">${c.unread}</span>`
+                  : ''
+              }
+
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join('');
+
+}
+
+
+function renderMessages(){
+
+  const messages =
+    document.getElementById('messages');
+
+  if(active < 0 || !chats[active]){
+
+    messages.innerHTML = `
+      <div class="empty">
+
+        <div class="empty-box">
+
+          <div class="big">💬</div>
+
+          <h2>Нет чатов</h2>
+
+          <p>
+            Здесь появятся ваши сообщения.
+            Нажмите 👥, чтобы создать новую группу.
+          </p>
+
+        </div>
+
+      </div>
+    `;
+
+    document.getElementById('headName').textContent =
+      'Pulse Messenger';
+
+    document.getElementById('detailName').textContent =
+      'Pulse Messenger';
+
+    document.getElementById('headAvatar').textContent =
+      'P';
+
+    document.getElementById('detailAvatar').textContent =
+      'P';
+
+    document.getElementById('members').innerHTML =
+      '<span class="member">Вы</span>';
+
+    document.getElementById('detailBio').textContent =
+      'Ваш мессенджер Pulse';
+
+    document.getElementById('input').placeholder =
+      'Сначала создайте чат…';
+
+    return;
+
+  }
+
+
+  const c = chats[active];
+
+  const h = histories[c.id] || [];
+
+  messages.innerHTML =
+    '<div class="day">Сегодня</div>' +
+
+    h.map(m => {
+
+      let body;
+
+      if(m.kind === 'image'){
+
+        body =
+          `<img class="attachment"
+          src="${m.url}"
+          alt="Фото">`;
+
+      }else if(m.kind === 'file'){
+
+        body =
+          `<div class="file-card">
+            📎
+            <div>
+              <strong>${esc(m.name)}</strong>
+              <small>${Math.round(m.size / 1024)} KB</small>
+            </div>
+          </div>`;
+
+      }else if(m.kind === 'audio'){
+
+        body =
+          `<audio
+            controls
+            src="${m.url}"
+            style="max-width:240px"
+          ></audio>`;
+
+      }else{
+
+        body = esc(m.text || '');
+
+      }
+
+      return `
+        <div class="msg ${m.me ? 'me' : ''}">
+
+          <div class="bubble">
+
+            ${
+              m.author
+                ? `<div style="
+                    font-size:12px;
+                    color:var(--accent);
+                    font-weight:700;
+                    margin-bottom:4px
+                  ">${esc(m.author)}</div>`
+                : ''
+            }
+
+            ${body}
+
+            <div class="meta">
+              ${esc(m.time || 'сейчас')}
+              ${m.me ? ' · ✓✓' : ''}
+            </div>
+
+          </div>
+
+        </div>
+      `;
+
+    }).join('');
+
+
+  messages.scrollTop = messages.scrollHeight;
+
+  document.getElementById('members').innerHTML =
+    c.members
+      .map(x => `<span class="member">${esc(x)}</span>`)
+      .join('');
+
+}
+
+
+function selectChat(i){
+
+  if(!chats[i]) return;
+
+  active = i;
+
+  const c = chats[i];
+
+  c.unread = 0;
+
+  document.getElementById('headName').textContent =
+    c.name;
+
+  document.getElementById('detailName').textContent =
+    c.name;
+
+  document.getElementById('headAvatar').textContent =
+    c.initial;
+
+  document.getElementById('detailAvatar').textContent =
+    c.initial;
+
+  document.getElementById('detailBio').textContent =
+    c.type === 'group'
+      ? 'Групповой чат · Pulse'
+      : 'Личные сообщения';
+
+  document.getElementById('input').placeholder =
+    'Напишите сообщение…';
+
+  renderChats();
+
+  renderMessages();
+
+}
+
+
+function now(){
+
+  return new Date().toLocaleTimeString(
+    'ru-RU',
+    {
+      hour:'2-digit',
+      minute:'2-digit'
+    }
+  );
+
+}
+
+
+function addMessage(m){
+
+  if(active < 0 || !chats[active]){
+
+    alert('Сначала создайте или выберите чат.');
+
+    return;
+
+  }
+
+  const id = chats[active].id;
+
+  (histories[id] ||= []).push(m);
+
+  renderMessages();
+
+  chats[active].text =
+    m.text ||
+    m.name ||
+    'Вложение';
+
+  chats[active].time =
+    now();
+
+  renderChats();
+
+  try{
+
+    broadcast?.postMessage({
+      type:'message',
+      chatId:id,
+      message:m
+    });
+
+  }catch(e){}
+
+}
+
+
+function applyUser(user){
+
+  document.getElementById(
+    'authOverlay'
+  ).style.display = 'none';
+
+  document.getElementById(
+    'myName'
+  ).textContent = user.name;
+
+  document.getElementById(
+    'myEmail'
+  ).textContent = user.email;
+
+  document.getElementById(
+    'myAvatar'
+  ).textContent =
+    user.name.trim().charAt(0).toUpperCase() || 'Я';
+
+}
+
+
+function initAuth(){
+
+  const saved =
+    localStorage.getItem('pulseUser');
+
+  if(saved){
+
+    try{
+
+      applyUser(JSON.parse(saved));
+
+    }catch(e){
+
+      localStorage.removeItem('pulseUser');
+
+    }
+
+  }
+
+}
+
+
+document
+  .getElementById('registerForm')
+  .addEventListener('submit', e => {
+
+    e.preventDefault();
+
+    const name =
+      document.getElementById('regName')
+        .value
+        .trim();
+
+    const email =
+      document.getElementById('regEmail')
+        .value
+        .trim();
+
+    const password =
+      document.getElementById('regPassword')
+        .value;
+
+    const err =
+      document.getElementById('authError');
+
+
+    if(name.length < 2){
+
+      err.textContent =
+        'Введите имя минимум из 2 символов.';
+
+      return;
+
+    }
+
+
+    if(password.length < 6){
+
+      err.textContent =
+        'Пароль должен содержать минимум 6 символов.';
+
+      return;
+
+    }
+
+
+    const user = {
+      name,
+      email
+    };
+
+
+    localStorage.setItem(
+      'pulseUser',
+      JSON.stringify(user)
+    );
+
+
+    applyUser(user);
+
+  });
+
+
+document
+  .getElementById('logoutBtn')
+  .onclick = () => {
+
+    localStorage.removeItem('pulseUser');
+
+    location.reload();
+
+  };
+
+
+document
+  .getElementById('search')
+  .oninput = renderChats;
+
+
+document
+  .getElementById('unreadTab')
+  .onclick = () => {
+
+    filterUnread = !filterUnread;
+
+    document
+      .getElementById('unreadTab')
+      .classList
+      .toggle('active', filterUnread);
+
+    document
+      .getElementById('allTab')
+      .classList
+      .toggle('active', !filterUnread);
+
+    renderChats();
+
+  };
+
+
+document
+  .getElementById('allTab')
+  .onclick = () => {
+
+    filterUnread = false;
+
+    document
+      .getElementById('unreadTab')
+      .classList
+      .remove('active');
+
+    document
+      .getElementById('allTab')
+      .classList
+      .add('active');
+
+    renderChats();
+
+  };
+
+
+document
+  .getElementById('attachBtn')
+  .onclick = () =>
+    document
+      .getElementById('fileInput')
+      .click();
+
+
+document
+  .getElementById('fileInput')
+  .onchange = e => {
+
+    if(active < 0){
+
+      alert('Сначала создайте чат.');
+
+      e.target.value = '';
+
+      return;
+
+    }
+
+    [...e.target.files].forEach(file => {
+
+      const reader =
+        new FileReader();
+
+      reader.onload = () => {
+
+        addMessage({
+
+          me:true,
+
+          kind:
+            file.type.startsWith('image/')
+              ? 'image'
+              : 'file',
+
+          url:reader.result,
+
+          name:file.name,
+
+          size:file.size,
+
+          time:now(),
+
+          text:file.name
+
+        });
+
+      };
+
+      reader.readAsDataURL(file);
+
+    });
+
+    e.target.value = '';
+
+  };
+
+
+document
+  .getElementById('composer')
+  .onsubmit = e => {
+
+    e.preventDefault();
+
+    if(active < 0){
+
+      alert('Сначала создайте чат.');
+
+      return;
+
+    }
+
+    const input =
+      document.getElementById('input');
+
+    const text =
+      input.value.trim();
+
+    if(!text) return;
+
+    addMessage({
+      me:true,
+      text,
+      time:now()
+    });
+
+    input.value = '';
+
+  };
+
+
+document
+  .getElementById('voiceBtn')
+  .onclick = async () => {
+
+    if(active < 0){
+
+      alert('Сначала создайте чат.');
+
+      return;
+
+    }
+
+
+    const voiceBtn =
+      document.getElementById('voiceBtn');
+
+
+    if(
+      mediaRecorder &&
+      mediaRecorder.state === 'recording'
+    ){
+
+      mediaRecorder.stop();
+
+      voiceBtn.classList.remove('recording');
+
+      voiceBtn.textContent = '🎙️';
+
+      return;
+
+    }
+
+
+    try{
+
+      const stream =
+        await navigator.mediaDevices
+          .getUserMedia({
+            audio:true
+          });
+
+      audioChunks = [];
+
+      mediaRecorder =
+        new MediaRecorder(stream);
+
+      mediaRecorder.ondataavailable =
+        e => audioChunks.push(e.data);
+
+
+      mediaRecorder.onstop = () => {
+
+        const blob =
+          new Blob(
+            audioChunks,
+            {type:'audio/webm'}
+          );
+
+        const url =
+          URL.createObjectURL(blob);
+
+        addMessage({
+
+          me:true,
+
+          kind:'audio',
+
+          url,
+
+          text:'Голосовое сообщение',
+
+          time:now()
+
+        });
+
+        stream
+          .getTracks()
+          .forEach(t => t.stop());
+
+      };
+
+
+      mediaRecorder.start();
+
+      voiceBtn.classList.add('recording');
+
+      voiceBtn.textContent = '⏹️';
+
+    }catch(e){
+
+      alert(
+        'Не удалось получить доступ к микрофону. Разрешите микрофон в браузере.'
+      );
+
+    }
+
+  };
+
+
+document
+  .getElementById('newGroup')
+  .onclick = () =>
+    document
+      .getElementById('groupModal')
+      .style.display = 'grid';
+
+
+document
+  .getElementById('cancelGroup')
+  .onclick = () =>
+    document
+      .getElementById('groupModal')
+      .style.display = 'none';
+
+
+document
+  .getElementById('createGroup')
+  .onclick = () => {
+
+    const groupName =
+      document
+        .getElementById('groupName')
+        .value
+        .trim();
+
+    const groupMembers =
+      document
+        .getElementById('groupMembers')
+        .value;
+
+
+    if(!groupName){
+
+      alert('Введите название группы.');
+
+      return;
+
+    }
+
+
+    const members =
+      groupMembers
+        .split(',')
+        .map(x => x.trim())
+        .filter(Boolean);
+
+
+    const id =
+      'group_' + Date.now();
+
+
+    chats.unshift({
+
+      id,
+
+      name:groupName,
+
+      initial:
+        groupName[0].toUpperCase(),
+
+      time:'сейчас',
+
+      text:'Группа создана',
+
+      unread:0,
+
+      cls:'orange',
+
+      type:'group',
+
+      members:
+        members.length
+          ? members
+          : ['Вы']
+
+    });
+
+
+    histories[id] = [];
+
+
+    document
+      .getElementById('groupName')
+      .value = '';
+
+    document
+      .getElementById('groupMembers')
+      .value = '';
+
+    document
+      .getElementById('groupModal')
+      .style.display = 'none';
+
+
+    renderChats();
+
+    selectChat(0);
+
+  };
+
+
+try{
+
+  broadcast =
+    new BroadcastChannel(
+      'pulse-realtime'
+    );
+
+
+  broadcast.onmessage = e => {
+
+    if(
+      e.data?.type !== 'message'
+    ) return;
+
+
+    const idx =
+      chats.findIndex(
+        c => c.id === e.data.chatId
+      );
+
+
+    if(idx < 0) return;
+
+
+    (
+      histories[e.data.chatId] ||= []
+    ).push(
+      e.data.message
+    );
+
+
+    chats[idx].text =
+      e.data.message.text ||
+      e.data.message.name ||
+      'Вложение';
+
+
+    chats[idx].time =
+      e.data.message.time ||
+      now();
+
+
+    if(idx === active){
+
+      renderMessages();
+
+    }
+
+
+    renderChats();
+
+  };
+
+}catch(e){}
+
+
+renderChats();
+
+renderMessages();
+
+initAuth();
+
+</script>
+
+</body>
+</html>
+```
